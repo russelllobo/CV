@@ -625,6 +625,10 @@ body.cv-open {
         padding-bottom: 32px;
     }
     
+    .hero .headshot {
+        margin-top: 24px;
+    }
+    
     .hero > .container {
         width: 100%;
     }
