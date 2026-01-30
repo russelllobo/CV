@@ -696,23 +696,196 @@ body.cv-open {
     overflow: hidden;
 }
 
-@media (max-width: 900px) {
+/* Tablet landscape - desktop-like behavior (covers iPad Mini, Air, Pro) */
+@media (max-width: 1400px) and (min-width: 641px) and (orientation: landscape) {
+    .hero {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .hero > .container {
+        flex: 0 0 auto;
+        width: auto !important;
+        max-width: var(--max-width);
+        transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+        transform: translateX(0) !important;
+    }
+    
     body.cv-open .hero > .container,
     body.cv-hover .hero > .container {
-        transform: translateX(-40%);
-        opacity: 0.4;
+        transform: translateX(-15vw) !important;
     }
     
     .cv-panel {
-        right: 3vw;
+        position: absolute;
+        right: 5vw;
+        top: 50%;
+        transform: translateY(-50%);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.4s ease;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    body.cv-open .cv-panel,
+    body.cv-hover .cv-panel {
+        opacity: 1;
+        pointer-events: auto;
     }
     
     .cv-preview-image {
         max-height: 60vh;
+        max-width: 40vw;
+        width: auto;
         border-radius: 8px;
+    }
+    
+    /* Always show close button on tablet when CV is visible */
+    body.cv-hover .cv-preview-close,
+    body.cv-open .cv-preview-close {
+        opacity: 1;
+        transform: scale(1);
     }
 }
 
+/* Tablet portrait - side by side layout (covers iPad Mini, Air, Pro) */
+@media (max-width: 1400px) and (min-width: 641px) and (orientation: portrait) {
+    .nav-links {
+        gap: 16px;
+    }
+    
+    .nav-links a {
+        display: inline;
+    }
+    
+    .theme-toggle {
+        margin-left: 0;
+    }
+    
+    .hero {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        padding-bottom: 0;
+    }
+    
+    .hero > .container {
+        flex: 0 0 auto;
+        width: auto !important;
+        max-width: var(--max-width);
+        transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+        transform: translateX(0) !important;
+    }
+    
+    .hero .headshot {
+        margin-top: 0;
+    }
+    
+    body.cv-hover .hero > .container,
+    body.cv-open .hero > .container {
+        transform: translateX(-12vw) !important;
+    }
+    
+    .cv-panel {
+        position: absolute;
+        right: 3vw;
+        top: 50%;
+        transform: translateY(-50%);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.4s ease;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    body.cv-open .cv-panel,
+    body.cv-hover .cv-panel {
+        opacity: 1;
+        pointer-events: auto;
+    }
+    
+    body.cv-hover .cv-preview-close {
+        opacity: 1;
+        transform: scale(1);
+    }
+    
+    body.cv-hover .cv-download-btn {
+        display: inline-flex;
+    }
+    
+    .cv-preview-image {
+        max-width: 38vw;
+        max-height: 55vh;
+        width: auto;
+        border-radius: 8px;
+    }
+    
+    body.cv-hover .hero {
+        padding-bottom: 0;
+    }
+}
+
+/* Small tablets and large phones in landscape */
+@media (max-width: 900px) and (min-width: 641px) and (orientation: landscape) {
+    .hero {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .hero > .container {
+        flex: 0 0 auto;
+        width: auto !important;
+        max-width: var(--max-width);
+        transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+        transform: translateX(0) !important;
+    }
+    
+    body.cv-open .hero > .container,
+    body.cv-hover .hero > .container {
+        transform: translateX(-12vw) !important;
+    }
+    
+    .cv-panel {
+        position: absolute;
+        right: 2vw;
+        top: 50%;
+        transform: translateY(-50%);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.4s ease;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding-right: 2vw;
+    }
+    
+    .cv-preview-image {
+        max-height: 65vh;
+        max-width: 100%;
+        width: auto;
+        border-radius: 8px;
+    }
+    
+    body.cv-hover .cv-preview-close,
+    body.cv-open .cv-preview-close {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Mobile (phones) */
 @media (max-width: 640px) {
     body.cv-hover .hero > .container {
         transform: none;

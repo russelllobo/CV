@@ -73,14 +73,17 @@ document.addEventListener('DOMContentLoaded', () => {
     const cvClose = cvPanel ? cvPanel.querySelector('.cv-preview-close') : null;
 
     if (cvLink && cvPanel) {
-        const isMobile = window.matchMedia('(max-width: 640px)').matches || 'ontouchstart' in window;
+        const isPhone = window.matchMedia('(max-width: 640px)').matches;
+        const isTablet = window.matchMedia('(min-width: 641px) and (max-width: 1400px)').matches;
+        const isTouchDevice = 'ontouchstart' in window;
+        const isMobile = isPhone || (isTouchDevice && !isTablet);
         let isPreviewVisible = false;
         const defaultText = cvLinkText ? cvLinkText.textContent : 'cv';
         const promptText = 'click again to open';
         const pdfUrl = cvLink.getAttribute('href');
         
-        if (isMobile) {
-            // Mobile: click to toggle preview, image click opens PDF
+        if (isPhone) {
+            // Phone only: click to toggle preview, scroll to CV, image click opens PDF
             cvLink.addEventListener('click', (e) => {
                 e.preventDefault();
                 if (!isPreviewVisible) {
@@ -104,7 +107,34 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             });
 
-            // Mobile: close button handler
+            // Phone: close button handler
+            if (cvClose) {
+                cvClose.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    document.body.classList.remove('cv-hover');
+                    isPreviewVisible = false;
+                    if (cvLinkText) cvLinkText.textContent = defaultText;
+                });
+            }
+        } else if (isTablet && isTouchDevice) {
+            // Tablet: click to toggle preview (no scroll), image click opens PDF
+            cvLink.addEventListener('click', (e) => {
+                e.preventDefault();
+                if (!isPreviewVisible) {
+                    document.body.classList.add('cv-hover');
+                    isPreviewVisible = true;
+                    if (cvLinkText) cvLinkText.textContent = promptText;
+                    // No scrolling on tablet - view stays the same
+                } else {
+                    window.open(pdfUrl, '_blank');
+                    document.body.classList.remove('cv-hover');
+                    isPreviewVisible = false;
+                    if (cvLinkText) cvLinkText.textContent = defaultText;
+                }
+            });
+
+            // Tablet: close button handler
             if (cvClose) {
                 cvClose.addEventListener('click', (e) => {
                     e.preventDefault();
