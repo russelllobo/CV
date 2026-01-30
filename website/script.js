@@ -31,4 +31,88 @@ document.addEventListener('DOMContentLoaded', () => {
         el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
         observer.observe(el);
     });
+
+    // CV Preview functionality
+    const cvLink = document.getElementById('cv-link');
+    const cvPanel = document.getElementById('cv-panel');
+    const cvLinkText = cvLink ? cvLink.querySelector('.cv-link-text') : null;
+    const cvClose = cvPanel ? cvPanel.querySelector('.cv-preview-close') : null;
+
+    if (cvLink && cvPanel) {
+        const isMobile = window.matchMedia('(max-width: 640px)').matches || 'ontouchstart' in window;
+        let isPreviewVisible = false;
+        const defaultText = cvLinkText ? cvLinkText.textContent : 'cv';
+        const promptText = 'click again to open';
+        const pdfUrl = cvLink.getAttribute('href');
+        
+        if (isMobile) {
+            // Mobile: click to toggle preview, image click opens PDF
+            cvLink.addEventListener('click', (e) => {
+                e.preventDefault();
+                if (!isPreviewVisible) {
+                    document.body.classList.add('cv-hover');
+                    isPreviewVisible = true;
+                    if (cvLinkText) cvLinkText.textContent = promptText;
+                    // Scroll to center the CV preview after a brief delay for animation
+                    setTimeout(() => {
+                        const previewImage = cvPanel.querySelector('.cv-preview-image');
+                        if (previewImage) {
+                            previewImage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        }
+                    }, 100);
+                } else {
+                    window.open(pdfUrl, '_blank');
+                    document.body.classList.remove('cv-hover');
+                    isPreviewVisible = false;
+                    if (cvLinkText) cvLinkText.textContent = defaultText;
+                }
+            });
+
+            // Mobile: close button handler
+            if (cvClose) {
+                cvClose.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    document.body.classList.remove('cv-hover');
+                    isPreviewVisible = false;
+                    if (cvLinkText) cvLinkText.textContent = defaultText;
+                });
+            }
+        } else {
+            // Desktop: hover to preview, click opens PDF
+            cvLink.addEventListener('mouseenter', () => {
+                document.body.classList.add('cv-hover');
+            });
+            
+            cvLink.addEventListener('mouseleave', () => {
+                if (!isPreviewVisible) {
+                    document.body.classList.remove('cv-hover');
+                }
+            });
+
+            cvLink.addEventListener('click', (e) => {
+                e.preventDefault();
+                if (!isPreviewVisible) {
+                    document.body.classList.add('cv-hover');
+                    isPreviewVisible = true;
+                    if (cvLinkText) cvLinkText.textContent = promptText;
+                } else {
+                    window.open(pdfUrl, '_blank');
+                    document.body.classList.remove('cv-hover');
+                    isPreviewVisible = false;
+                    if (cvLinkText) cvLinkText.textContent = defaultText;
+                }
+            });
+
+            if (cvClose) {
+                cvClose.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    document.body.classList.remove('cv-hover');
+                    isPreviewVisible = false;
+                    if (cvLinkText) cvLinkText.textContent = defaultText;
+                });
+            }
+        }
+    }
 });

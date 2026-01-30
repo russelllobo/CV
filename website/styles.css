@@ -105,13 +105,6 @@ nav .container {
 }
 
 /* ===== Hero ===== */
-.hero {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    padding-top: 52px;
-}
-
 .headshot {
     width: 120px !important;
     height: 120px !important;
@@ -460,5 +453,189 @@ footer .container {
     
     html {
         scroll-behavior: auto;
+    }
+}
+
+/* ===== CV Preview Panel ===== */
+.hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding-top: 52px;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero > .container {
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.6s ease;
+    width: 100%;
+}
+
+body.cv-open .hero > .container,
+body.cv-hover .hero > .container {
+    transform: translateX(-25%);
+}
+
+.cv-panel {
+    position: absolute;
+    right: 5vw;
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+body.cv-open .cv-panel,
+body.cv-hover .cv-panel {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.cv-preview-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+.cv-preview-link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+}
+
+.cv-preview-link:hover {
+    opacity: 1;
+}
+
+.cv-preview-link:hover .cv-preview-image {
+    transform: scale(1.02);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+}
+
+.cv-preview-image {
+    max-height: 70vh;
+    width: auto;
+    border-radius: 12px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+    border: 1px solid var(--border);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.cv-preview-close {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transform: scale(0.9);
+    transition: opacity 0.2s ease, transform 0.3s ease;
+    cursor: pointer;
+    z-index: 10;
+    pointer-events: auto;
+    padding: 8px;
+    box-sizing: content-box;
+}
+
+.cv-preview-close svg {
+    width: 12px;
+    height: 12px;
+    stroke: var(--text-secondary);
+}
+
+/* Mobile: always show close button when preview is visible */
+@media (max-width: 640px) {
+    body.cv-hover .cv-preview-close {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Desktop: show and animate close line on hover with image */
+@media (min-width: 641px) {
+    .cv-preview-wrapper:hover .cv-preview-close {
+        opacity: 1;
+        transform: scale(1.02);
+    }
+}
+
+/* Body state when CV is open */
+body.cv-open {
+    overflow: hidden;
+}
+
+@media (max-width: 900px) {
+    body.cv-open .hero > .container,
+    body.cv-hover .hero > .container {
+        transform: translateX(-40%);
+        opacity: 0.4;
+    }
+    
+    .cv-panel {
+        right: 3vw;
+    }
+    
+    .cv-preview-image {
+        max-height: 60vh;
+        border-radius: 8px;
+    }
+}
+
+@media (max-width: 640px) {
+    body.cv-hover .hero > .container {
+        transform: none;
+        opacity: 1;
+    }
+    
+    .hero {
+        flex-direction: column;
+        min-height: auto;
+        padding-bottom: 32px;
+    }
+    
+    .hero > .container {
+        width: 100%;
+    }
+    
+    .cv-panel {
+        position: absolute;
+        visibility: hidden;
+        opacity: 0;
+        height: 0;
+        overflow: hidden;
+        transform: none;
+        width: calc(100% - 48px);
+        left: 24px;
+        right: 24px;
+        top: auto;
+        bottom: 10vh;
+    }
+    
+    body.cv-hover .cv-panel {
+        position: relative;
+        visibility: visible;
+        opacity: 1;
+        height: auto;
+        overflow: visible;
+        width: 100%;
+        left: 0;
+        right: 0;
+        bottom: auto;
+        margin-top: 48px;
+        padding: 0 24px;
+    }
+    
+    .cv-preview-image {
+        max-width: 100%;
+        max-height: none;
+        width: 100%;
     }
 }
