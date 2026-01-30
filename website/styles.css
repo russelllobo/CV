@@ -605,30 +605,31 @@ body.cv-open {
         width: 100%;
     }
     
-    .cv-panel {
-        position: absolute;
+    .cv-panel,
+    body.cv-open .cv-panel,
+    body.cv-hover .cv-panel {
+        position: relative;
         visibility: hidden;
         opacity: 0;
         height: 0;
         overflow: hidden;
         transform: none;
-        width: calc(100% - 48px);
-        left: 24px;
-        right: 24px;
+        width: 100%;
+        left: 0;
+        right: 0;
         top: auto;
-        bottom: 10vh;
+        bottom: auto;
+        pointer-events: none;
+        margin: 0;
+        padding: 0;
     }
     
     body.cv-hover .cv-panel {
-        position: relative;
         visibility: visible;
         opacity: 1;
         height: auto;
         overflow: visible;
-        width: 100%;
-        left: 0;
-        right: 0;
-        bottom: auto;
+        pointer-events: auto;
         margin-top: 48px;
         padding: 0 24px;
     }
