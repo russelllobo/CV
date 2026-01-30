@@ -551,11 +551,35 @@ body.cv-hover .cv-panel {
     stroke: var(--text-secondary);
 }
 
+/* CV Download Button - hidden by default, shown on mobile */
+.cv-download-btn {
+    display: none;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.9rem;
+    color: var(--accent);
+    margin-top: 16px;
+    align-self: flex-start;
+}
+
+.cv-download-btn svg {
+    width: 16px;
+    height: 16px;
+}
+
 /* Mobile: always show close button when preview is visible */
 @media (max-width: 640px) {
     body.cv-hover .cv-preview-close {
         opacity: 1;
         transform: scale(1);
+    }
+    
+    body.cv-hover .cv-download-btn {
+        display: inline-flex;
+    }
+    
+    .cv-panel {
+        align-items: flex-start;
     }
 }
 
@@ -630,13 +654,22 @@ body.cv-open {
         height: auto;
         overflow: visible;
         pointer-events: auto;
-        margin-top: 48px;
+        margin-top: 32px;
         padding: 0 24px;
+        margin-bottom: 0;
     }
     
     .cv-preview-image {
         max-width: 100%;
         max-height: none;
         width: 100%;
+    }
+    
+    body.cv-hover .hero {
+        padding-bottom: 16px;
+    }
+    
+    body.cv-hover ~ #about {
+        padding-top: 24px;
     }
 }

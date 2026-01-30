@@ -53,11 +53,13 @@ document.addEventListener('DOMContentLoaded', () => {
                     document.body.classList.add('cv-hover');
                     isPreviewVisible = true;
                     if (cvLinkText) cvLinkText.textContent = promptText;
-                    // Scroll to center the CV preview after a brief delay for animation
+                    // Scroll so CV preview is visible with some padding at top
                     setTimeout(() => {
-                        const previewImage = cvPanel.querySelector('.cv-preview-image');
-                        if (previewImage) {
-                            previewImage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        const cvPanelElement = document.getElementById('cv-panel');
+                        if (cvPanelElement) {
+                            const yOffset = -80; // Offset from top to ensure full image visible
+                            const y = cvPanelElement.getBoundingClientRect().top + window.pageYOffset + yOffset;
+                            window.scrollTo({ top: y, behavior: 'smooth' });
                         }
                     }, 100);
                 } else {
