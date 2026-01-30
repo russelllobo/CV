@@ -1,6 +1,5 @@
 # Fdb version 4
-["pdflatex"] 1769638231.02026 "/Users/russelllobo/Documents/important/CV/cv.tex" "cv.pdf" "cv" 1769638237.14494 0
-  "/Users/russelllobo/Documents/important/CV/cv.tex" 1769638154.1935 9474 8e7f80040127b61a709b2b502a9594f5 ""
+["pdflatex"] 1769789118.68143 "cv.tex" "cv.pdf" "cv" 1769789120.92005 0
   "/Users/russelllobo/Library/Application Support/MiKTeX/texmfs/data/fonts/map/pdftex/pdftex.map" 1769607732.2669 154220 c9de853227b7c002fd289e862fb4d8ef ""
   "/Users/russelllobo/Library/Application Support/MiKTeX/texmfs/data/miktex/data/le/pdftex/pdflatex.fmt" 1766238998.13215 10189442 9c0ed587975bc2df51920fda90fd3031 ""
   "/Users/russelllobo/Library/Application Support/MiKTeX/texmfs/install/fonts/tfm/public/cm/cmbx10.tfm" 1755110529.87382 1328 c834bbb027764024c09d3d2bf908b5f0 ""
@@ -78,9 +77,9 @@
   "/Users/russelllobo/Library/Application Support/MiKTeX/texmfs/install/tex/latex/tools/tabularx.sty" 1763918322.54209 7243 a2c17f18e2c9b702b84fad03d5f9c78b ""
   "/Users/russelllobo/Library/Application Support/MiKTeX/texmfs/install/tex/latex/tools/verbatim.sty" 1763918322.53109 7532 26d26e9d8f2ca784270d5da8ec7d102b ""
   "/Users/russelllobo/Library/Application Support/MiKTeX/texmfs/install/tex/latex/url/url.sty" 1756388321.66936 12796 8edb7d69a20b857904dd0ea757c14ec9 ""
-  "cv.aux" 1769638236.08828 722 a90b8d3a5cd8053a95480e381a7d764a "pdflatex"
-  "cv.out" 1769638236.20205 449 1beb6068dedc8c49cba16ef155988ae3 "pdflatex"
-  "cv.tex" 1769638154.1935 9474 8e7f80040127b61a709b2b502a9594f5 ""
+  "cv.aux" 1769789120.50831 722 a90b8d3a5cd8053a95480e381a7d764a "pdflatex"
+  "cv.out" 1769789120.51113 449 1beb6068dedc8c49cba16ef155988ae3 "pdflatex"
+  "cv.tex" 1769789088.19046 9426 ee345f8cc4c97725e6a9263e937e13d0 ""
   (generated)
   "cv.aux"
   "cv.log"

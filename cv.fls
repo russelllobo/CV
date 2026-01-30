@@ -1,6 +1,6 @@
 PWD /Users/russelllobo/Documents/important/CV
 INPUT /Users/russelllobo/Library/Application Support/MiKTeX/texmfs/data/miktex/data/le/pdftex/pdflatex.fmt
-INPUT /Users/russelllobo/Documents/important/CV/cv.tex
+INPUT cv.tex
 OUTPUT cv.log
 INPUT /Users/russelllobo/Library/Application Support/MiKTeX/texmfs/install/tex/latex/base/article.cls
 INPUT /Users/russelllobo/Library/Application Support/MiKTeX/texmfs/install/tex/latex/base/article.cls
