@@ -467,7 +467,7 @@ footer .container {
 }
 
 .hero > .container {
-    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.6s ease;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
     width: 100%;
 }
 
@@ -483,7 +483,7 @@ body.cv-hover .hero > .container {
     transform: translateY(-50%);
     opacity: 0;
     pointer-events: none;
-    transition: opacity 0.4s ease;
+    transition: opacity 0.2s ease;
     display: flex;
     flex-direction: column;
     align-items: center;
