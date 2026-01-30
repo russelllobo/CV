@@ -1,0 +1,257 @@
+%-------------------------
+% Resume in LateX
+% Author : Sourabh Bajaj
+% License : MIT
+%------------------------
+
+\documentclass[letterpaper,11pt]{article}
+
+
+
+\usepackage{latexsym}
+\usepackage[empty]{fullpage}
+\usepackage{titlesec}
+\usepackage{marvosym}
+\usepackage[usenames,dvipsnames]{color}
+\usepackage{verbatim}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+\usepackage{fancyhdr}
+\usepackage[english]{babel}
+\usepackage{tabularx}
+\input{glyphtounicode}
+
+
+
+
+
+\pagestyle{fancy}
+\fancyhf{} % Clear all header and footer fields
+\fancyfoot{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+% Adjust margins
+\addtolength{\oddsidemargin}{-0.5in}
+\addtolength{\evensidemargin}{-0.5in}
+\addtolength{\textwidth}{1in}
+\addtolength{\topmargin}{-.5in}
+\addtolength{\textheight}{1.0in}
+
+\urlstyle{same}
+
+\raggedbottom
+\raggedright
+\setlength{\tabcolsep}{0in}
+
+% Sections formatting
+\titleformat{\section}{
+  \vspace{-4pt}\scshape\raggedright\large
+}{}{0em}{}[\color{black}\titlerule \vspace{-5pt}]
+
+% Ensure that generate PDF is machine readable/ATS parsable
+\pdfgentounicode=1
+
+%-------------------------
+% Custom commands
+\newcommand{\resumeItem}[2]{
+  \item\small{
+    \textbf{#1}{: #2 \vspace{-2pt}}
+  }
+}
+
+% Just in case someone needs a heading that does not need to be in a list
+\newcommand{\resumeHeading}[4]{
+    \begin{tabular*}{0.99\textwidth}[t]{l@{\extracolsep{\fill}}r}
+      \textbf{#1} & #2 \\
+      \textit{\small#3} & \small #4 \\
+    \end{tabular*}\vspace{-5pt}
+}
+
+\newcommand{\resumeSubheading}[4]{
+  \vspace{-1pt}\item
+    \begin{tabular*}{0.97\textwidth}[t]{l@{\extracolsep{\fill}}r}
+      \textbf{#1} & #2 \\
+      \textit{\small#3} & \small #4 \\
+    \end{tabular*}\vspace{-5pt}
+}
+
+\newcommand{\resumeSubSubheading}[2]{
+    \begin{tabular*}{0.97\textwidth}{l@{\extracolsep{\fill}}r}
+      \textit{\small#1} & \small #2 \\
+    \end{tabular*}\vspace{-5pt}
+}
+
+\newcommand{\resumeSubItem}[2]{\resumeItem{#1}{#2}\vspace{-4pt}}
+
+\renewcommand{\labelitemii}{$\circ$}
+
+\newcommand{\resumeSubHeadingListStart}{\begin{itemize}[leftmargin=*,label={}]} 
+\newcommand{\resumeSubHeadingListEnd}{\end{itemize}}
+\newcommand{\resumeItemListStart}{\begin{itemize}}
+\newcommand{\resumeItemListEnd}{\end{itemize}\vspace{-5pt}}
+
+%-------------------------------------------
+%%%%%%  CV STARTS HERE  %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+
+%----------HEADING-----------------
+\begin{tabular*}{\textwidth}{l@{\extracolsep{\fill}}r}
+  \textbf{\Huge Russell Lobo} & 
+  \begin{tabular}{r}
+    \href{mailto:r.lobo2003@gmail.com}{r.lobo2003@gmail.com}\\
+    \href{tel:+447471168554}{+44 7471168554} \\
+    \href{https://www.linkedin.com/in/russell-lobo-b295ba147}{linkedin}
+  \end{tabular} \\
+\end{tabular*}
+
+%-----------PROFILE-----------------
+\section{Profile}
+  \resumeSubHeadingListStart
+    \resumeItem{Builder}
+      {Risk Consultant with a track record of deploying novel solutions to fix broken workflows rather than keeping the status quo.}
+    \resumeItem{Systems Thinker}
+      {Biochemistry graduate who applies scientific rigour. Comfortable translating complex information into actionable insights, presenting to stakeholders, and iterating on solutions based on hypothesis-led testing.}
+  \resumeSubHeadingListEnd
+
+
+%-----------EDUCATION-----------------
+\section{Education}
+  \resumeSubHeadingListStart
+    \resumeSubheading
+      {University of Bristol}{Bristol, UK}
+      {Bachelor of Science in Biochemistry; 1:1}{2022 -- 2025}
+      \resumeItemListStart
+        \resumeItem{Literature Review}
+          {Mapping the Unseen: The Quest for Efficient, Automated Organelle Segmentation}
+        \resumeItem{Research Project}
+          {Dual Nucleotide Specificity of the Recombinant YchF Homologue from Pyrococcus horikoshii}
+      \resumeItemListEnd
+    % \resumeSubheading
+    %   {The London Oratory School}{London, UK}
+    %     {Secondary school}{2011 -- 2022}
+    %   \resumeItemListStart
+    %     \resumeItem{A levels}
+    %     {Biology (A*), Chemistry (A), Mathematics (A), Economics AS (A)}
+    %     \resumeItem{GCSEs}
+    %     {10A*s, 1A}
+    %     \resumeItem{Awards}
+    %     {Oratory Dux Proxime (for outstanding academic results)}
+    %     \resumeItemListEnd  
+    
+  \resumeSubHeadingListEnd
+
+
+
+
+
+%-----------EXPERIENCE-----------------
+\section{Experience}
+  \resumeSubHeadingListStart
+
+    \resumeSubheading
+      {EY}{London, UK}
+      {Risk Consultant}{Sep 2025 -- Present}
+      \resumeItemListStart
+        \resumeItem{Engineered Internal Audit Tooling}
+          {Identified a critical bottleneck in manual evidence review in audits; built and deployed a full-stack Python application (using Tesseract OCR for extraction and LLM APIs for semantic analysis) wrapped in a Tailwind CSS WebUI.}
+        \resumeItem{Operational Impact}
+          {Scaled the tool to a 8-person engagement team, automating the extraction of unstructured data from PDFs; significantly reduced manual audit cycles while increasing data accuracy and consistency.}
+        \resumeItem{Diagnosed Workflows}
+          {Conducted deep-dive sessions to map end-to-end audit workflows; translated team feedback into structured process maps to identify friction points.}
+      \resumeItemListEnd
+    \resumeSubSubheading
+      {Consulting Intern}{July 2024}
+      \resumeItemListStart
+        \resumeItem{Data-Driven Decision Making}
+          {Leveraged SQL and PowerBI to turn raw incident management data into a cohesive narrative; pitched recommendations to Partners to drive client decision-making.}
+        \resumeItem{On-Site Discovery}
+          {Embedded into on-site client teams to capture requirements for Risk \& Control Matrices (RACMs), quickly upskilled to understand the audit landscape.}
+        \resumeItem{Performance}
+          {Selected from a 3\% acceptance rate applicant pool; secured a return offer based on technical delivery and client impact.}
+      \resumeItemListEnd
+      
+% --------Multiple Positions Heading------------
+  %  \resumeSubSubheading
+  %   {Software Engineer I}{Oct 2014 -- Sep 2016}
+  %   \resumeItemListStart
+  %      \resumeItem{Apache Beam}
+  %        {Apache Beam is a unified model for defining both batch and streaming data-parallel processing pipelines}
+  %   \resumeItemListEnd
+
+%-------------------------------------------
+
+    \resumeSubheading
+      {MyTutor}{Remote}
+      {Maths tutor}{October 2022 -- February 2023}
+      
+      \resumeItemListStart
+        \resumeItem{Communication and support}
+          {Guided KS2 students in after-school group sessions, addressing each student's specific learning challenges individually. Developed a "first-principles" teaching style to simplify logic.}
+      \resumeItemListEnd
+
+
+
+    
+
+  \resumeSubHeadingListEnd
+  
+%-----------VOLUNTEERING-----------------
+%\section{Volunteering}
+%  \resumeSubHeadingListStart
+%  \resumeSubheading
+%      {The London Oratory School}{London, UK}
+%      {Science tutor and peer mentor}{September 2021 -- March 2022}
+%      \resumeItemListStart
+%        \resumeItem{Support}
+%          {Helped GCSE students removed from class overcome academic challenges.}
+%        \resumeItem{Communication}
+%          {Stayed calm under pressure while ensuring students felt heard.}
+%          
+%      \resumeItemListEnd
+%  \resumeSubHeadingListEnd
+  
+%-----------PROJECTS & SKILLS-----------------
+\section{Technical Projects \& Skills}
+  \resumeSubHeadingListStart
+    \resumeSubheading
+      {SME Digital Transformation}{Hospitality \& Retail}
+      {Full-Stack Deployment}{}
+      \resumeItemListStart
+        \resumeItem{Full-Stack Deployment}{Architected and deployed a custom, self-hosted reservation system and responsive web frontend for a family-owned restaurant.}
+        \resumeItem{Business Impact}{Digitalisation of the booking workflow resulted in a 35\% increase in monthly reservations and reduced admin time by $\sim$8 hours/week.}
+        \resumeItem{Scaling}{Currently refactoring the codebase to deploy a bespoke booking and inventory management solution for an upcoming beauty salon client.}
+      \resumeItemListEnd
+
+    \resumeSubheading
+      {Monopoly Strategy Simulator}{Python}
+      {Stochastic Modelling}{}
+      \resumeItemListStart
+        \resumeItem{Stochastic Modelling}{Built a Python-based simulation engine to model board state probabilities and dice-roll distributions over 10,000+ game iterations.}
+        \resumeItem{Strategic Analysis}{Applied statistical analysis to identify optimal property acquisition strategies (a simplified ``Digital Twin'' of the game economy).}
+      \resumeItemListEnd
+    \item
+      \textbf{Self-taught}
+      \resumeItemListStart
+        \resumeItem{Languages \& Tools}{Agents (Claude Code, Codex), Basic Python (Pandas, Selenium, Requests), R, PowerBI, Tailwind CSS, Git.}
+        \resumeItem{Core Competencies}{Rapid Prootyping with agents, Web Scraping/Automation, Process Mapsping.}
+        \resumeItem{Learning}{Self-taught developer with a proven ability to upskill rapidly in new languages and agentic workflows to solve immediate business problems.}
+      \resumeItemListEnd
+  \resumeSubHeadingListEnd
+
+%
+%--------SKILLS------------
+%\section{Skills}
+%  \resumeSubHeadingListStart
+%    \item{
+%      \textbf{Languages}{: Scala, Python, JavaScript, C++, SQL, Java}
+%      \hfill
+%      \textbf{Technologies}{: AWS, Play, React, Kafka, GCE}
+%    }
+%  \resumeSubHeadingListEnd
+
+
+%-------------------------------------------
+\end{document}
