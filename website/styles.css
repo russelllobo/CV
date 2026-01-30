@@ -112,6 +112,15 @@ nav .container {
     padding-top: 52px;
 }
 
+.headshot {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 32px;
+    border: 1px solid var(--border);
+}
+
 .hero h1 {
     font-family: var(--font-display);
     font-size: clamp(2.5rem, 6vw, 4rem);
@@ -369,25 +378,6 @@ nav .container {
 
 .contact-link:hover svg {
     color: var(--accent);
-}
-
-/* ===== Contact Grid ===== */
-.contact-grid {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    gap: 48px;
-    align-items: start;
-}
-
-.linkedin-badge {
-    flex-shrink: 0;
-}
-
-@media (max-width: 640px) {
-    .contact-grid {
-        grid-template-columns: 1fr;
-        gap: 32px;
-    }
 }
 
 /* ===== Footer ===== */
