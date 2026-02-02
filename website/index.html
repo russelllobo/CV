@@ -20,36 +20,66 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <nav>
-        <div class="container">
-            <a href="#" class="nav-name">Russell Lobo</a>
-            <div class="nav-links">
-                <a href="#about">About</a>
-                <a href="#experience">Experience</a>
-                <a href="#projects">Projects</a>
-                <a href="#contact">Contact</a>
-                <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
-                    <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                        <circle cx="12" cy="12" r="5"/>
-                        <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
-                    </svg>
-                    <svg class="moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                        <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/>
-                    </svg>
-                </button>
-            </div>
+    <!-- Animated Grain Background -->
+    <div class="grain-background" aria-hidden="true">
+        <svg class="grain-svg" width="100%" height="100%">
+            <filter id="grain-filter">
+                <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="4" stitchTiles="stitch"/>
+                <feColorMatrix type="saturate" values="0"/>
+            </filter>
+            <rect width="100%" height="100%" filter="url(#grain-filter)"/>
+        </svg>
+        <div class="gradient-layer"></div>
+    </div>
+    
+    <!-- Minimal Sidebar Navigation -->
+    <nav class="sidebar-nav" aria-label="Page navigation">
+        <span class="nav-brand">russell lobo</span>
+        
+        <div class="nav-track">
+            <a href="#about" class="nav-dot" data-section="about">
+                <span class="nav-label">about</span>
+            </a>
+            <a href="#experience" class="nav-dot" data-section="experience">
+                <span class="nav-label">experience</span>
+            </a>
+            <a href="#projects" class="nav-dot" data-section="projects">
+                <span class="nav-label">projects</span>
+            </a>
+            <a href="#skills" class="nav-dot" data-section="skills">
+                <span class="nav-label">skills</span>
+            </a>
+            <a href="#contact" class="nav-dot" data-section="contact">
+                <span class="nav-label">contact</span>
+            </a>
         </div>
+        
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+            <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <circle cx="12" cy="12" r="5"/>
+                <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+            </svg>
+            <svg class="moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/>
+            </svg>
+        </button>
     </nav>
 
-    <section class="hero">
-        <div class="container">
-            <img src="headshot.png" alt="Russell Lobo" class="headshot fade-in" width="120" height="120">
-            <h1 class="fade-in delay-1">Risk Consultant<br>& Builder</h1>
-            <p class="subtitle fade-in delay-2">
-                I deploy novel solutions to fix broken workflows. 
-                Currently at EY in London, building tools that turn manual processes into automated systems.
-            </p>
-            <div class="hero-links fade-in delay-3">
+    <section id="hero" class="hero">
+        <div class="container hero-content">
+            <div class="hero-name-container fade-in">
+                <h1 class="hero-name">
+                    <span class="hero-name-line">RUSSELL</span>
+                    <span class="hero-name-line hero-name-lobo">LOBO <img src="headshot.png" alt="Russell Lobo" class="headshot" width="120" height="120"></span>
+                </h1>
+                <p class="hero-role">Risk Consultant & <span class="highlight-builder">Builder</span></p>
+            </div>
+            <div class="hero-body fade-in delay-1">
+                <p class="subtitle">
+                    I deploy novel solutions to fix broken workflows. 
+                    Currently at EY in London, building tools that turn manual processes into automated systems.
+                </p>
+                <div class="hero-links">
                 <a href="mailto:r.lobo2003@gmail.com">
                     email
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -68,33 +98,15 @@
                         <path d="M7 17L17 7M17 7H7M17 7v10"/>
                     </svg>
                 </a>
-            </div>
-        </div>
-        
-        <!-- CV Preview Panel -->
-        <div class="cv-panel" id="cv-panel">
-            <div class="cv-preview-wrapper">
-                <a href="cv.pdf" target="_blank" class="cv-preview-link">
-                    <img src="cv-preview.png" alt="Russell Lobo CV" class="cv-preview-image">
-                </a>
-                <div class="cv-preview-close" aria-label="Close preview">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M18 6L6 18M6 6l12 12"/>
-                    </svg>
                 </div>
             </div>
-            <a href="cv.pdf" download class="cv-download-btn">
-                download
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/>
-                </svg>
-            </a>
         </div>
     </section>
 
     <section id="about">
         <div class="container">
             <p class="section-title">About</p>
+            <img src="headshot.png" alt="Russell Lobo" class="headshot-mobile" width="100" height="100">
             <p>
                 I'm a Biochemistry graduate from the University of Bristol (First Class Honours) 
                 who applies scientific rigour to business problems. I'm comfortable translating 
@@ -227,25 +239,22 @@
         </div>
     </section>
 
-    <section id="contact" class="contact">
+    <section id="contact">
         <div class="container">
-            <h2>Let's connect</h2>
-            <p>I'm always open to discussing new opportunities or interesting problems.</p>
+            <p class="section-title">Contact</p>
+            <p class="contact-intro">I'm always open to discussing new opportunities or interesting problems.</p>
             <div class="contact-links">
-                <a href="mailto:r.lobo2003@gmail.com" class="contact-link">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
-                        <polyline points="22,6 12,13 2,6"/>
+                <a href="mailto:r.lobo2003@gmail.com">
+                    email
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M7 17L17 7M17 7H7M17 7v10"/>
                     </svg>
-                    r.lobo2003@gmail.com
                 </a>
-                <a href="https://www.linkedin.com/in/russell-lobo-b295ba147" target="_blank" class="contact-link">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                        <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
-                        <rect x="2" y="9" width="4" height="12"/>
-                        <circle cx="4" cy="4" r="2"/>
+                <a href="https://www.linkedin.com/in/russell-lobo-b295ba147" target="_blank">
+                    linkedin
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M7 17L17 7M17 7H7M17 7v10"/>
                     </svg>
-                    LinkedIn
                 </a>
             </div>
         </div>
@@ -254,8 +263,8 @@
     <footer>
         <div class="container">
             <span>Russell Lobo</span>
-            <span>Made with ❤️ in London</span>
-            <span>© 2026</span>
+            <span>Made with ♥ in London</span>
+            <span>© 2025</span>
         </div>
     </footer>
 
