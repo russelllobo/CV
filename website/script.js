@@ -233,6 +233,42 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // ===== Builder Typewriter Effect =====
+    const builderSpan = document.querySelector('.highlight-builder');
+    
+    if (builderSpan && !prefersReducedMotion) {
+        const finalText = builderSpan.textContent;
+        const typeSpeed = 100; // ms per character
+        const startDelay = 800; // ms after page load
+        
+        // Clear initial text and prepare for typing
+        builderSpan.textContent = '';
+        builderSpan.classList.add('typing');
+        builderSpan.style.width = 'auto';
+        builderSpan.style.display = 'inline-block';
+        
+        // Start typing after delay
+        setTimeout(() => {
+            let charIndex = 0;
+            
+            const typeNextChar = () => {
+                if (charIndex < finalText.length) {
+                    builderSpan.textContent += finalText[charIndex];
+                    charIndex++;
+                    setTimeout(typeNextChar, typeSpeed);
+                } else {
+                    // Typing complete - stop cursor blink and fade it out
+                    setTimeout(() => {
+                        builderSpan.classList.remove('typing');
+                        builderSpan.classList.add('typing-complete');
+                    }, 400);
+                }
+            };
+            
+            typeNextChar();
+        }, startDelay);
+    }
+
     // ===== Page Load Animation =====
     if (!prefersReducedMotion) {
         document.body.classList.add('page-loaded');
