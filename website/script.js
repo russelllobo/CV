@@ -300,26 +300,33 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             });
             
-            // If no title has crossed the trigger point, check if we're at/before the first section
+            // If no title has crossed the trigger point, hide pill
+            // Only show pill starting from experience section, not during about
             if (!activeTitle) {
-                const firstSection = document.getElementById('about');
-                if (firstSection) {
-                    const firstTitle = firstSection.querySelector('.section-title');
-                    if (firstTitle) {
-                        const rect = firstTitle.getBoundingClientRect();
-                        // If first title is still below trigger, hide header
-                        if (rect.top > 80) {
-                            stickyHeader.classList.remove('visible');
-                            currentSection = null;
-                            return;
-                        }
-                    }
-                }
+                stickyHeader.classList.remove('visible');
+                currentSection = null;
+                return;
             }
             
             if (activeTitle) {
                 const section = activeTitle.closest('section');
                 const titleText = activeTitle.textContent;
+                const titleRect = activeTitle.getBoundingClientRect();
+                
+                // Only show pill starting from experience section
+                // Delay showing in experience by 100px scroll (about 1/4 of typical viewport)
+                if (section.id === 'about') {
+                    stickyHeader.classList.remove('visible');
+                    currentSection = null;
+                    return;
+                }
+                
+                // In experience section, only show after scrolling a bit into it
+                if (section.id === 'experience' && titleRect.top > -100) {
+                    stickyHeader.classList.remove('visible');
+                    currentSection = null;
+                    return;
+                }
                 
                 // Only update if section changed
                 if (currentSection !== section.id) {
@@ -400,7 +407,16 @@ document.addEventListener('DOMContentLoaded', () => {
         window.addEventListener('scroll', () => {
             if (!ticking) {
                 requestAnimationFrame(() => {
-                    updateStickyHeader();
+                    // Check if we're near the bottom of the page
+                    const scrollPosition = window.scrollY + window.innerHeight;
+                    const documentHeight = document.documentElement.scrollHeight;
+                    const isNearBottom = (documentHeight - scrollPosition) < 100;
+                    
+                    if (isNearBottom) {
+                        stickyHeader.classList.remove('visible');
+                    } else {
+                        updateStickyHeader();
+                    }
                     ticking = false;
                 });
                 ticking = true;

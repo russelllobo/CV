@@ -1071,6 +1071,55 @@ body.page-loaded .grain-background {
     }
 }
 
+/* ===== Sticky Header Dark Mode ===== */
+@media (prefers-color-scheme: dark) {
+    @media (max-width: 640px) {
+        .sticky-header-content {
+            background: rgba(26, 25, 24, 0.75);
+            backdrop-filter: blur(40px) saturate(200%);
+            -webkit-backdrop-filter: blur(40px) saturate(200%);
+            border: 1px solid rgba(42, 41, 38, 0.5);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), 
+                        0 2px 8px rgba(0, 0, 0, 0.2),
+                        inset 0 1px 0 rgba(255, 255, 255, 0.08);
+        }
+        
+        .sticky-header.expanded .sticky-header-content {
+            background: rgba(26, 25, 24, 0.75);
+            backdrop-filter: blur(40px) saturate(200%);
+            -webkit-backdrop-filter: blur(40px) saturate(200%);
+            border: 1px solid rgba(42, 41, 38, 0.5);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), 
+                        0 2px 8px rgba(0, 0, 0, 0.2),
+                        inset 0 1px 0 rgba(255, 255, 255, 0.08);
+        }
+    }
+}
+
+[data-theme="dark"] {
+    @media (max-width: 640px) {
+        .sticky-header-content {
+            background: rgba(26, 25, 24, 0.75);
+            backdrop-filter: blur(40px) saturate(200%);
+            -webkit-backdrop-filter: blur(40px) saturate(200%);
+            border: 1px solid rgba(42, 41, 38, 0.5);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), 
+                        0 2px 8px rgba(0, 0, 0, 0.2),
+                        inset 0 1px 0 rgba(255, 255, 255, 0.08);
+        }
+        
+        .sticky-header.expanded .sticky-header-content {
+            background: rgba(26, 25, 24, 0.75);
+            backdrop-filter: blur(40px) saturate(200%);
+            -webkit-backdrop-filter: blur(40px) saturate(200%);
+            border: 1px solid rgba(42, 41, 38, 0.5);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), 
+                        0 2px 8px rgba(0, 0, 0, 0.2),
+                        inset 0 1px 0 rgba(255, 255, 255, 0.08);
+        }
+    }
+}
+
 /* Mobile headshot in about section */
 .headshot-mobile {
     display: none;
