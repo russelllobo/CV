@@ -196,6 +196,50 @@ section {
     padding: var(--spacing) 0;
 }
 
+/* ===== Section Reveal Animations ===== */
+.section-reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s var(--ease-out-expo),
+                transform 0.8s var(--ease-out-expo);
+}
+
+.section-reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Stagger children animations within revealed sections */
+.section-reveal.visible .experience-item,
+.section-reveal.visible .project-card,
+.section-reveal.visible .skills-grid > * {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: sectionChildFadeIn 0.6s var(--ease-out-expo) forwards;
+}
+
+.section-reveal.visible .experience-item:nth-child(1) { animation-delay: 0.1s; }
+.section-reveal.visible .experience-item:nth-child(2) { animation-delay: 0.2s; }
+.section-reveal.visible .experience-item:nth-child(3) { animation-delay: 0.3s; }
+
+.section-reveal.visible .project-card:nth-child(1) { animation-delay: 0.1s; }
+.section-reveal.visible .project-card:nth-child(2) { animation-delay: 0.2s; }
+
+.section-reveal.visible .skills-grid > *:nth-child(1) { animation-delay: 0.1s; }
+.section-reveal.visible .skills-grid > *:nth-child(2) { animation-delay: 0.15s; }
+.section-reveal.visible .skills-grid > *:nth-child(3) { animation-delay: 0.2s; }
+
+@keyframes sectionChildFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 /* ===== Minimal Sidebar Navigation ===== */
 .sidebar-nav {
     position: fixed;
@@ -401,7 +445,6 @@ section {
     font-weight: 500;
     letter-spacing: 0.02em;
     color: var(--text-secondary);
-    text-transform: lowercase;
     opacity: 0;
     animation: heroRoleEnter 0.8s var(--ease-out-expo) forwards;
     animation-delay: 0.6s;
@@ -496,7 +539,13 @@ section {
     gap: 6px;
     position: relative;
     transition: color 0.3s var(--ease-out-quart);
+    opacity: 0;
+    animation: heroLinkCascade 0.5s var(--ease-out-expo) forwards;
 }
+
+.hero-links a:nth-child(1) { animation-delay: 1.2s; }
+.hero-links a:nth-child(2) { animation-delay: 1.3s; }
+.hero-links a:nth-child(3) { animation-delay: 1.4s; }
 
 .hero-links a::before {
     content: '';
@@ -880,8 +929,9 @@ body.page-loaded .grain-background {
     }
     
     .hero-name {
-        font-size: clamp(3.5rem, 20vw, 6rem);
+        font-size: clamp(2.8rem, 28vw, 7rem);
         line-height: 0.92;
+        letter-spacing: -0.02em;
     }
     
     /* Hide headshot in hero on mobile */
@@ -901,6 +951,9 @@ body.page-loaded .grain-background {
     .highlight-builder {
         vertical-align: baseline;
         margin: 0;
+        cursor: pointer;
+        transition: transform 0.15s ease;
+        -webkit-tap-highlight-color: rgba(154, 152, 144, 0.2);
     }
     
     .hero .subtitle {
@@ -911,16 +964,6 @@ body.page-loaded .grain-background {
         flex-direction: column;
         gap: 12px;
     }
-    
-    /* Hero links staggered cascade animation on mobile */
-    .hero-links a {
-        opacity: 0;
-        animation: heroLinkCascade 0.5s var(--ease-out-expo) forwards;
-    }
-    
-    .hero-links a:nth-child(1) { animation-delay: 1.2s; }
-    .hero-links a:nth-child(2) { animation-delay: 1.3s; }
-    .hero-links a:nth-child(3) { animation-delay: 1.4s; }
     
     /* Reduce space between hero and about on mobile */
     #about {

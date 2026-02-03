@@ -24,9 +24,16 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Initial theme - don't save if using system preference
     const savedTheme = localStorage.getItem('theme');
-    if (savedTheme) {
+    const isMobile = window.innerWidth <= 640;
+    
+    if (isMobile) {
+        // Mobile: always use system preference, ignore saved theme
+        setTheme(prefersDark.matches ? 'dark' : 'light', false);
+    } else if (savedTheme) {
+        // Desktop: use saved theme if available
         setTheme(savedTheme, false);
     } else {
+        // Desktop: use system preference if no saved theme
         setTheme(prefersDark.matches ? 'dark' : 'light', false);
     }
     
@@ -37,11 +44,64 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
     
+    // ===== Section Reveal on Scroll =====
+    const sectionsToReveal = document.querySelectorAll('#about, #experience, #projects, #skills, #contact');
+    
+    const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                // Optionally unobserve after reveal
+                // revealObserver.unobserve(entry.target);
+            }
+        });
+    }, {
+        threshold: 0.15, // Trigger when 15% of section is visible
+        rootMargin: '0px 0px -50px 0px' // Slight offset for smoother timing
+    });
+    
+    sectionsToReveal.forEach(section => {
+        section.classList.add('section-reveal');
+        revealObserver.observe(section);
+    });
+    
     prefersDark.addEventListener('change', (e) => {
-        if (!localStorage.getItem('theme')) {
+        const isMobile = window.innerWidth <= 640;
+        // On mobile, always follow system; on desktop, only if no saved theme
+        if (isMobile || !localStorage.getItem('theme')) {
             setTheme(e.matches ? 'dark' : 'light', false);
         }
     });
+    
+    // ===== Mobile Easter Egg: Builder Highlight Theme Toggle =====
+    const builderHighlight = document.querySelector('.highlight-builder');
+    if (builderHighlight && window.innerWidth <= 640) {
+        // Make Builder clickable on mobile
+        builderHighlight.style.cursor = 'pointer';
+        builderHighlight.style.userSelect = 'none';
+        
+        // Double-tap to toggle theme (prevents accidental triggers)
+        let lastTapTime = 0;
+        builderHighlight.addEventListener('click', (e) => {
+            const currentTime = Date.now();
+            const tapGap = currentTime - lastTapTime;
+            
+            if (tapGap < 400 && tapGap > 0) {
+                // Double tap detected - toggle theme temporarily (doesn't save)
+                e.preventDefault();
+                const current = document.documentElement.getAttribute('data-theme');
+                setTheme(current === 'dark' ? 'light' : 'dark', false);
+                
+                // Add subtle animation feedback
+                builderHighlight.style.transform = 'scale(1.05)';
+                setTimeout(() => {
+                    builderHighlight.style.transform = 'scale(1)';
+                }, 150);
+            }
+            
+            lastTapTime = currentTime;
+        });
+    }
 
     // ===== Sidebar Navigation =====
     const sidebarNav = document.querySelector('.sidebar-nav');
@@ -196,7 +256,7 @@ document.addEventListener('DOMContentLoaded', () => {
     statValues.forEach(stat => statObserver.observe(stat));
 
     // ===== Enhanced Scroll Reveal Animations =====
-    const revealObserver = new IntersectionObserver(
+    const containerRevealObserver = new IntersectionObserver(
         (entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -211,7 +271,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('section > .container').forEach(el => {
         if (!prefersReducedMotion) {
             el.classList.add('reveal');
-            revealObserver.observe(el);
+            containerRevealObserver.observe(el);
         }
     });
 
@@ -219,7 +279,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('.skills-category ul').forEach(ul => {
         if (!prefersReducedMotion) {
             ul.classList.add('stagger-children');
-            revealObserver.observe(ul);
+            containerRevealObserver.observe(ul);
         }
     });
 
@@ -272,8 +332,14 @@ document.addEventListener('DOMContentLoaded', () => {
     // ===== Sticky Section Header (Mobile Only) =====
     const stickyHeader = document.querySelector('.sticky-header');
     const stickyHeaderText = document.querySelector('.sticky-header-text');
+    let stickyHeaderInitialized = false;
 
-    if (stickyHeader && stickyHeaderText && window.innerWidth <= 640) {
+    function initStickyHeader() {
+        if (stickyHeaderInitialized || !stickyHeader || !stickyHeaderText || window.innerWidth > 640) {
+            return;
+        }
+        
+        stickyHeaderInitialized = true;
         // Get all section titles to observe
         const sectionTitles = document.querySelectorAll('.section-title');
         let currentSection = null;
@@ -509,6 +575,16 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         };
     }
+    
+    // Initialize sticky header on load
+    initStickyHeader();
+    
+    // Re-check on resize
+    window.addEventListener('resize', () => {
+        if (window.innerWidth <= 640 && !stickyHeaderInitialized) {
+            initStickyHeader();
+        }
+    });
 
     // ===== Page Load Animation =====
     if (!prefersReducedMotion) {
