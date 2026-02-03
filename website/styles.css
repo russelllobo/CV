@@ -339,7 +339,7 @@ section {
     font-size: clamp(3rem, 15vw, 11rem);
     font-weight: 500;
     letter-spacing: -0.02em;
-    line-height: 0.88;
+    line-height: 0.95;
     color: var(--accent);
     margin: 0 0 16px 0;
     margin-left: -0.04em;
@@ -409,14 +409,21 @@ section {
 
 /* Builder highlight with typewriter effect container */
 .highlight-builder {
-    display: inline-block;
+    display: inline;
     background: var(--accent);
     color: white;
-    padding: 0.05em 0.2em;
-    margin: 0 -0.1em;
+    padding: 0.05em 0.25em;
     overflow: hidden;
     white-space: nowrap;
-    vertical-align: bottom;
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
+}
+
+@media (min-width: 641px) {
+    .highlight-builder {
+        position: relative;
+        top: 0.40em;
+    }
 }
 
 /* Typewriter cursor */
@@ -795,6 +802,18 @@ footer .container {
     50% { opacity: 0; }
 }
 
+/* Hero link cascade for mobile */
+@keyframes heroLinkCascade {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -861,8 +880,8 @@ body.page-loaded .grain-background {
     }
     
     .hero-name {
-        font-size: clamp(2.5rem, 16vw, 4.5rem);
-        line-height: 0.9;
+        font-size: clamp(3.5rem, 20vw, 6rem);
+        line-height: 0.92;
     }
     
     /* Hide headshot in hero on mobile */
@@ -872,6 +891,16 @@ body.page-loaded .grain-background {
     
     .hero-role {
         font-size: 1rem;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: baseline;
+        gap: 0.25em;
+    }
+    
+    /* Fix builder alignment on mobile */
+    .highlight-builder {
+        vertical-align: baseline;
+        margin: 0;
     }
     
     .hero .subtitle {
@@ -882,6 +911,16 @@ body.page-loaded .grain-background {
         flex-direction: column;
         gap: 12px;
     }
+    
+    /* Hero links staggered cascade animation on mobile */
+    .hero-links a {
+        opacity: 0;
+        animation: heroLinkCascade 0.5s var(--ease-out-expo) forwards;
+    }
+    
+    .hero-links a:nth-child(1) { animation-delay: 1.2s; }
+    .hero-links a:nth-child(2) { animation-delay: 1.3s; }
+    .hero-links a:nth-child(3) { animation-delay: 1.4s; }
     
     /* Reduce space between hero and about on mobile */
     #about {
@@ -901,6 +940,134 @@ body.page-loaded .grain-background {
     footer .container {
         flex-direction: column;
         gap: 8px;
+    }
+    
+    /* Sticky Section Header (Minimal) */
+    .sticky-header {
+        display: block;
+        position: fixed;
+        top: 12px;
+        left: 24px;
+        z-index: 100;
+        opacity: 0;
+        transform: translateY(-10px);
+        transition: opacity 0.15s ease, transform 0.15s ease;
+        pointer-events: none;
+    }
+    
+    .sticky-header.visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    
+    .sticky-header-content {
+        display: inline-flex;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 10px 20px;
+        background: rgba(250, 249, 246, 0.65);
+        backdrop-filter: blur(40px) saturate(200%);
+        -webkit-backdrop-filter: blur(40px) saturate(200%);
+        border-radius: 50px;
+        border: 1px solid rgba(224, 221, 216, 0.4);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1), 
+                    0 2px 8px rgba(0, 0, 0, 0.06),
+                    inset 0 1px 0 rgba(255, 255, 255, 0.4);
+        overflow: hidden;
+        max-height: 42px;
+        transition: max-height 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+                    padding 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+                    border-radius 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+                    width 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .sticky-header-text {
+        font-family: var(--font-display);
+        font-size: 0.75rem;
+        font-weight: 600;
+        color: var(--text);
+        text-transform: lowercase;
+        letter-spacing: 0.03em;
+        display: flex;
+        align-items: center;
+        opacity: 0;
+        transition: opacity 0.15s ease;
+        white-space: nowrap;
+    }
+    
+    .sticky-header-text.active {
+        opacity: 1;
+    }
+    
+    /* Make header clickable when visible */
+    .sticky-header.visible {
+        pointer-events: auto;
+        cursor: pointer;
+    }
+    
+    /* Expanded state - hide header text, show only nav */
+    .sticky-header.expanded .sticky-header-content {
+        max-height: 320px;
+        width: 130px !important;
+        padding: 12px 20px 16px;
+        border-radius: 16px;
+        background: rgba(250, 249, 246, 0.65);
+        backdrop-filter: blur(40px) saturate(200%);
+        -webkit-backdrop-filter: blur(40px) saturate(200%);
+        border: 1px solid rgba(224, 221, 216, 0.4);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1), 
+                    0 2px 8px rgba(0, 0, 0, 0.06),
+                    inset 0 1px 0 rgba(255, 255, 255, 0.4);
+    }
+    
+    .sticky-header.expanded .sticky-header-text {
+        display: none;
+    }
+    
+    /* Nav menu - hidden by default */
+    .sticky-header-nav {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        max-height: 0;
+        opacity: 0;
+        overflow: hidden;
+        transition: max-height 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+                    opacity 0.2s ease;
+    }
+    
+    .sticky-header.expanded .sticky-header-nav {
+        max-height: 280px;
+        opacity: 1;
+    }
+    
+    /* Nav items */
+    .sticky-nav-item {
+        font-family: var(--font-display);
+        font-size: 0.9rem;
+        font-weight: 500;
+        color: var(--text-secondary);
+        text-decoration: none;
+        padding: 8px 0;
+        transition: color 0.15s ease;
+        letter-spacing: 0.02em;
+        line-height: 1.4;
+    }
+    
+    .sticky-nav-item:hover,
+    .sticky-nav-item:active {
+        color: var(--text);
+    }
+    
+    .sticky-nav-item.active {
+        color: var(--text);
+        font-weight: 600;
+    }
+}
+
+@media (min-width: 641px) {
+    .sticky-header {
+        display: none;
     }
 }
 
@@ -1020,6 +1187,7 @@ body.page-loaded .grain-background {
     .highlight-builder {
         overflow: visible;
         white-space: normal;
+        vertical-align: baseline;
     }
     
     .highlight-builder::after {

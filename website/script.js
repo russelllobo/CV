@@ -269,6 +269,231 @@ document.addEventListener('DOMContentLoaded', () => {
         }, startDelay);
     }
 
+    // ===== Sticky Section Header (Mobile Only) =====
+    const stickyHeader = document.querySelector('.sticky-header');
+    const stickyHeaderText = document.querySelector('.sticky-header-text');
+
+    if (stickyHeader && stickyHeaderText && window.innerWidth <= 640) {
+        // Get all section titles to observe
+        const sectionTitles = document.querySelectorAll('.section-title');
+        let currentSection = null;
+        let intersectingTitles = new Map();
+
+        // Update sticky header based on which title is currently crossing the top
+        const updateStickyHeader = () => {
+            // Find all titles that have crossed above the trigger point
+            let activeTitle = null;
+            let minTop = Infinity;
+            
+            sectionTitles.forEach(title => {
+                const rect = title.getBoundingClientRect();
+                const titleTop = rect.top;
+                
+                // Title has crossed the trigger point if it's at or above it (top <= 80)
+                // We want the one that's lowest on screen but still above the trigger
+                if (titleTop <= 80) {
+                    // Among titles above trigger, pick the one closest to it (highest top value)
+                    if (titleTop > minTop || activeTitle === null) {
+                        minTop = titleTop;
+                        activeTitle = title;
+                    }
+                }
+            });
+            
+            // If no title has crossed the trigger point, check if we're at/before the first section
+            if (!activeTitle) {
+                const firstSection = document.getElementById('about');
+                if (firstSection) {
+                    const firstTitle = firstSection.querySelector('.section-title');
+                    if (firstTitle) {
+                        const rect = firstTitle.getBoundingClientRect();
+                        // If first title is still below trigger, hide header
+                        if (rect.top > 80) {
+                            stickyHeader.classList.remove('visible');
+                            currentSection = null;
+                            return;
+                        }
+                    }
+                }
+            }
+            
+            if (activeTitle) {
+                const section = activeTitle.closest('section');
+                const titleText = activeTitle.textContent;
+                
+                // Only update if section changed
+                if (currentSection !== section.id) {
+                    currentSection = section.id;
+                    
+                    // Measure the new text width using a hidden element
+                    const measureSpan = document.createElement('span');
+                    measureSpan.style.cssText = `
+                        position: absolute;
+                        visibility: hidden;
+                        white-space: nowrap;
+                        font-family: var(--font-display);
+                        font-size: 0.75rem;
+                        font-weight: 600;
+                        letter-spacing: 0.03em;
+                    `;
+                    measureSpan.textContent = titleText;
+                    document.body.appendChild(measureSpan);
+                    const newWidth = measureSpan.offsetWidth + 40; // +40 for padding (20px each side)
+                    document.body.removeChild(measureSpan);
+                    
+                    // Get the sticky header content element
+                    const stickyHeaderContent = stickyHeader.querySelector('.sticky-header-content');
+                    
+                    // Crossfade: fade out, change text, fade in with width animation
+                    stickyHeaderText.classList.remove('active');
+                    
+                    setTimeout(() => {
+                        stickyHeaderText.textContent = titleText;
+                        stickyHeaderContent.style.width = newWidth + 'px';
+                        stickyHeaderText.classList.add('active');
+                    }, 150);
+                }
+                
+                stickyHeader.classList.add('visible');
+            } else {
+                stickyHeader.classList.remove('visible');
+                currentSection = null;
+            }
+        };
+
+        // Use IntersectionObserver to detect when titles cross the viewport top
+        // rootMargin pushes the detection line 80px from the top
+        const titleObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                const title = entry.target;
+                const section = title.closest('section');
+                
+                if (section) {
+                    // Store intersection ratio for this title
+                    if (entry.isIntersecting) {
+                        intersectingTitles.set(section.id, {
+                            title: title,
+                            boundingClientRect: entry.boundingClientRect
+                        });
+                    } else {
+                        intersectingTitles.delete(section.id);
+                    }
+                }
+                
+                updateStickyHeader();
+            });
+        }, {
+            // Detect when any part of the title crosses the threshold line
+            threshold: 0,
+            // The rootMargin creates a detection line at 80px from top
+            // Negative value means "inside the viewport"
+            rootMargin: '-80px 0px 0px 0px'
+        });
+
+        // Observe each section title
+        sectionTitles.forEach(title => {
+            titleObserver.observe(title);
+        });
+
+        // Also update on scroll for smoothness (handles cases where intersection observer might miss)
+        let ticking = false;
+        window.addEventListener('scroll', () => {
+            if (!ticking) {
+                requestAnimationFrame(() => {
+                    updateStickyHeader();
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        }, { passive: true });
+
+        // Initial check
+        updateStickyHeader();
+        
+        // ===== Expandable Menu Functionality =====
+        const stickyHeaderContent = stickyHeader.querySelector('.sticky-header-content');
+        const stickyNav = stickyHeader.querySelector('.sticky-header-nav');
+        const navItems = stickyHeader.querySelectorAll('.sticky-nav-item');
+        
+        // Toggle expanded state on click
+        stickyHeaderContent.addEventListener('click', (e) => {
+            // Don't toggle if clicking a nav link (let it handle navigation)
+            if (e.target.closest('.sticky-nav-item')) {
+                return;
+            }
+            
+            stickyHeader.classList.toggle('expanded');
+            
+            // Update active state on nav items when opening
+            if (stickyHeader.classList.contains('expanded') && currentSection) {
+                navItems.forEach(item => {
+                    item.classList.toggle('active', item.dataset.section === currentSection);
+                });
+            }
+        });
+        
+        // Handle nav item clicks
+        navItems.forEach(item => {
+            item.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                
+                const targetSection = document.getElementById(item.dataset.section);
+                if (targetSection) {
+                    // Collapse menu
+                    stickyHeader.classList.remove('expanded');
+                    
+                    // Get the section title to calculate scroll position
+                    const sectionTitle = targetSection.querySelector('.section-title');
+                    const targetElement = sectionTitle || targetSection;
+                    const rect = targetElement.getBoundingClientRect();
+                    const scrollTarget = window.scrollY + rect.top - 16;
+                    
+                    // Smooth scroll so pill covers the heading (pill is at top: 12px)
+                    window.scrollTo({
+                        top: scrollTarget,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Close when clicking outside
+        document.addEventListener('click', (e) => {
+            if (stickyHeader.classList.contains('expanded') && 
+                !stickyHeader.contains(e.target)) {
+                stickyHeader.classList.remove('expanded');
+            }
+        });
+        
+        // Collapse pill when user scrolls
+        let lastScrollY = window.scrollY;
+        window.addEventListener('scroll', () => {
+            if (stickyHeader.classList.contains('expanded')) {
+                const currentScrollY = window.scrollY;
+                // Only collapse if there's actual scroll movement (not just initial state)
+                if (Math.abs(currentScrollY - lastScrollY) > 5) {
+                    stickyHeader.classList.remove('expanded');
+                }
+                lastScrollY = currentScrollY;
+            }
+        }, { passive: true });
+        
+        // Update nav item active state when section changes
+        const originalUpdateStickyHeader = updateStickyHeader;
+        updateStickyHeader = function() {
+            const prevSection = currentSection;
+            originalUpdateStickyHeader();
+            
+            // If section changed and menu is expanded, update active states
+            if (currentSection !== prevSection && stickyHeader.classList.contains('expanded')) {
+                navItems.forEach(item => {
+                    item.classList.toggle('active', item.dataset.section === currentSection);
+                });
+            }
+        };
+    }
+
     // ===== Page Load Animation =====
     if (!prefersReducedMotion) {
         document.body.classList.add('page-loaded');
