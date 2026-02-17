@@ -286,8 +286,7 @@ section {
 
 /* ===== Page Links Section ===== */
 .page-links-section {
-    padding: clamp(40px, 6vh, 80px) 0 clamp(60px, 12vh, 140px);
-    animation-delay: 1.4s;
+    padding: 0 0 clamp(60px, 12vh, 140px);
 }
 
 .page-links {
@@ -298,7 +297,15 @@ section {
 
 .page-link-item {
     border-top: 1px solid var(--border);
+    opacity: 0;
+    animation: fadeIn 0.6s var(--ease-out-expo) both;
 }
+
+.page-link-item:nth-child(1) { animation-delay: 1.2s; }
+.page-link-item:nth-child(2) { animation-delay: 1.35s; }
+.page-link-item:nth-child(3) { animation-delay: 1.5s; }
+.page-link-item:nth-child(4) { animation-delay: 1.65s; }
+.page-link-item:nth-child(5) { animation-delay: 1.8s; }
 
 .page-link-item:last-child {
     border-bottom: 1px solid var(--border);
@@ -466,7 +473,7 @@ section {
     flex-shrink: 0;
     vertical-align: middle;
     animation: headshotBlossom 0.55s cubic-bezier(0.34, 1.4, 0.64, 1) both;
-    animation-delay: 0.55s;
+    animation-delay: 1.5s;
 }
 
 .hero-name-lobo .headshot:hover {
@@ -1292,20 +1299,20 @@ body.page-loaded .grain-background {
 
 /* ===== Hero Layout ===== */
 .hero {
-    min-height: 100vh;
+    min-height: 82vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
     position: relative;
     overflow: hidden;
-    padding: 80px 0;
+    padding: 80px 0 40px;
 }
 
 /* ===== Mobile Hero ===== */
 @media (max-width: 640px) {
     .hero {
-        min-height: auto;
-        padding: 120px 0 60px;
+        min-height: 80vh;
+        padding: 120px 0 40px;
     }
 }
 
