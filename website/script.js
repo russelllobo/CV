@@ -12,12 +12,9 @@ document.addEventListener('DOMContentLoaded', () => {
         if (save) localStorage.setItem('theme', theme);
     };
 
-    const isMobile = window.innerWidth <= 640;
     const savedTheme = localStorage.getItem('theme');
 
-    if (isMobile) {
-        setTheme(prefersDark.matches ? 'dark' : 'light', false);
-    } else if (savedTheme) {
+    if (savedTheme) {
         setTheme(savedTheme, false);
     } else {
         setTheme(prefersDark.matches ? 'dark' : 'light', false);
@@ -31,7 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     prefersDark.addEventListener('change', (e) => {
-        if (window.innerWidth <= 640 || !localStorage.getItem('theme')) {
+        if (!localStorage.getItem('theme')) {
             setTheme(e.matches ? 'dark' : 'light', false);
         }
     });
@@ -44,14 +41,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const isOpen = drawer.classList.contains('open');
 
-            // Close all
             document.querySelectorAll('.section-drawer.open').forEach(d => {
                 d.classList.remove('open');
                 const b = document.querySelector(`[data-target="${d.id}"]`);
                 if (b) b.setAttribute('aria-expanded', 'false');
             });
 
-            // Open this one if it was closed
             if (!isOpen) {
                 drawer.classList.add('open');
                 btn.setAttribute('aria-expanded', 'true');
