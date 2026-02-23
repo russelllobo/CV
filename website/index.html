@@ -150,9 +150,9 @@
                         <span>projects</span>
                         <svg class="link-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
                     </button>
-                    <div class="section-drawer" id="section-projects">
+                    <div class="section-drawer open" id="section-projects">
                         <div class="section-drawer-inner">
-                            <div class="project">
+                            <div class="project project-showcase-card">
                                 <h3>SME Digital Transformation</h3>
                                 <p class="project-meta">Full-Stack · Hospitality & Retail</p>
                                 <p>
@@ -161,27 +161,80 @@
                                     to deploy a bespoke booking and inventory management solution for an upcoming 
                                     beauty salon client.
                                 </p>
+
+                                <!-- Showcase: Browser Frame Screenshots -->
+                                <div class="project-showcase">
+                                    <div class="browser-frame">
+                                        <div class="browser-chrome">
+                                            <div class="browser-dots">
+                                                <span class="dot dot-red"></span>
+                                                <span class="dot dot-yellow"></span>
+                                                <span class="dot dot-green"></span>
+                                            </div>
+                                            <div class="browser-address">goldenwillowstorrington.com</div>
+                                        </div>
+                                        <div class="browser-viewport">
+                                            <img src="assets/showcase/gw-home.png" alt="Golden Willow homepage — hero section with restaurant frontage photo, navigation, and call-to-action buttons" loading="lazy" class="showcase-img showcase-img-static">
+                                        </div>
+                                        <span class="browser-label">Homepage</span>
+                                    </div>
+                                    <div class="browser-frame">
+                                        <div class="browser-chrome">
+                                            <div class="browser-dots">
+                                                <span class="dot dot-red"></span>
+                                                <span class="dot dot-yellow"></span>
+                                                <span class="dot dot-green"></span>
+                                            </div>
+                                            <div class="browser-address">goldenwillowstorrington.com/menu</div>
+                                        </div>
+                                        <div class="browser-viewport browser-viewport-scroll">
+                                            <img src="assets/showcase/gw-menu.png" alt="Golden Willow menu page — 21 category filters, search bar, and dish cards with prices" loading="lazy" class="showcase-img showcase-img-scroll">
+                                        </div>
+                                        <span class="browser-label">Menu</span>
+                                    </div>
+                                    <div class="browser-frame">
+                                        <div class="browser-chrome">
+                                            <div class="browser-dots">
+                                                <span class="dot dot-red"></span>
+                                                <span class="dot dot-yellow"></span>
+                                                <span class="dot dot-green"></span>
+                                            </div>
+                                            <div class="browser-address">goldenwillowstorrington.com/contact</div>
+                                        </div>
+                                        <div class="browser-viewport browser-viewport-scroll">
+                                            <img src="assets/showcase/gw-contact.png" alt="Golden Willow contact page — Google Maps embed, opening hours, address card, and contact form" loading="lazy" class="showcase-img showcase-img-scroll">
+                                        </div>
+                                        <span class="browser-label">Contact</span>
+                                    </div>
+                                </div>
+
+                                <!-- Feature Pills -->
+                                <div class="project-features">
+                                    <span class="feature-pill">Live Reservations</span>
+                                    <span class="feature-pill">Filterable Menu UI</span>
+                                    <span class="feature-pill">EmailJS Contact Form</span>
+                                    <span class="feature-pill">Mobile-First</span>
+                                    <span class="feature-pill">Google Maps</span>
+                                    <span class="feature-pill">Scroll Animations</span>
+                                </div>
+
                                 <div class="project-stats">
                                     <div class="stat">
-                                        <span class="stat-value">35%</span>
+                                        <span class="stat-value" data-count="35" data-suffix="%">35%</span>
                                         <span class="stat-label">Increase in monthly reservations</span>
                                     </div>
                                     <div class="stat">
-                                        <span class="stat-value">~8 hrs</span>
+                                        <span class="stat-value" data-count="8" data-prefix="~" data-suffix=" hrs">~8 hrs</span>
                                         <span class="stat-label">Admin time saved per week</span>
                                     </div>
                                 </div>
+
+                                <a href="https://www.goldenwillowstorrington.com" target="_blank" class="showcase-live-link">
+                                    view live site
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+                                </a>
                             </div>
-                            <div class="project">
-                                <h3>Monopoly Strategy Simulator</h3>
-                                <p class="project-meta">Python · Stochastic Modelling</p>
-                                <p>
-                                    Built a simulation engine to model board state probabilities and dice-roll 
-                                    distributions over 10,000+ game iterations. Applied statistical analysis to 
-                                    identify optimal property acquisition strategies—a simplified "Digital Twin" 
-                                    of the game economy.
-                                </p>
-                            </div>
+
                             <div class="project">
                                 <h3>Audit Evidence Automation</h3>
                                 <p class="project-meta">Python · OCR · LLM APIs</p>

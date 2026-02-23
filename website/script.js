@@ -58,4 +58,58 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!prefersReducedMotion) {
         document.body.classList.add('page-loaded');
     }
+
+    // ===== Stat Counter Animation =====
+    // Animates stat values from 0 to their final number when they scroll into view
+    const statValues = document.querySelectorAll('.stat-value[data-count]');
+
+    if (statValues.length && !prefersReducedMotion) {
+        const animateCount = (el) => {
+            const target = parseFloat(el.dataset.count);
+            const prefix = el.dataset.prefix || '';
+            const suffix = el.dataset.suffix || '';
+            const duration = 1800;
+            const startTime = performance.now();
+
+            el.classList.add('counting');
+
+            const step = (now) => {
+                const elapsed = now - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+                // Ease-out cubic for a satisfying deceleration
+                const eased = 1 - Math.pow(1 - progress, 3);
+                const current = Math.round(eased * target);
+
+                el.textContent = prefix + current + suffix;
+
+                if (progress < 1) {
+                    requestAnimationFrame(step);
+                } else {
+                    el.textContent = prefix + target + suffix;
+                    // Keep accent color briefly, then fade back
+                    setTimeout(() => el.classList.remove('counting'), 600);
+                }
+            };
+
+            requestAnimationFrame(step);
+        };
+
+        const statsObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    // Small delay so the accordion has time to fully open
+                    setTimeout(() => animateCount(entry.target), 200);
+                    statsObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        statValues.forEach(el => {
+            // Set initial display to 0
+            const prefix = el.dataset.prefix || '';
+            const suffix = el.dataset.suffix || '';
+            el.textContent = prefix + '0' + suffix;
+            statsObserver.observe(el);
+        });
+    }
 });

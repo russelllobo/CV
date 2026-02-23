@@ -547,6 +547,211 @@ section {
     margin-bottom: 48px;
     padding-bottom: 48px;
     border-bottom: 1px solid var(--border);
+    transition: border-color 0.5s ease, box-shadow 0.5s ease;
+}
+
+/* --- Showcase Card: Golden Willow Aura Hover --- */
+.project-showcase-card {
+    border-radius: 12px;
+    padding: 28px 24px 28px;
+    margin-left: -24px;
+    margin-right: -24px;
+    border-bottom: 1px solid var(--border);
+    transition: box-shadow 0.6s var(--ease-out-expo),
+                border-color 0.5s ease;
+}
+
+.project-showcase-card:hover {
+    box-shadow:
+        0 0 0 1px rgba(212, 175, 55, 0.12),
+        0 0 40px -8px rgba(212, 175, 55, 0.08),
+        0 0 80px -16px rgba(0, 63, 60, 0.06);
+}
+
+[data-theme="dark"] .project-showcase-card:hover {
+    box-shadow:
+        0 0 0 1px rgba(212, 175, 55, 0.18),
+        0 0 40px -8px rgba(212, 175, 55, 0.12),
+        0 0 80px -16px rgba(0, 63, 60, 0.10);
+}
+
+@media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) .project-showcase-card:hover {
+        box-shadow:
+            0 0 0 1px rgba(212, 175, 55, 0.18),
+            0 0 40px -8px rgba(212, 175, 55, 0.12),
+            0 0 80px -16px rgba(0, 63, 60, 0.10);
+    }
+}
+
+/* --- Screenshot Showcase Grid --- */
+.project-showcase {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin: 24px 0;
+}
+
+/* --- Browser Frame --- */
+.browser-frame {
+    position: relative;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    background: var(--bg-alt);
+    transition: transform 0.35s var(--ease-out-expo),
+                box-shadow 0.35s var(--ease-out-expo);
+}
+
+.browser-frame:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 30px -10px var(--shadow-color-strong);
+}
+
+.browser-chrome {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 10px;
+    background: var(--bg-alt);
+    border-bottom: 1px solid var(--border);
+}
+
+.browser-dots {
+    display: flex;
+    gap: 4px;
+    flex-shrink: 0;
+}
+
+.dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+}
+
+.dot-red { background: #ff5f57; }
+.dot-yellow { background: #ffbd2e; }
+.dot-green { background: #28c940; }
+
+.browser-address {
+    flex: 1;
+    font-family: var(--font-body);
+    font-size: 0.55rem;
+    color: var(--text-secondary);
+    background: var(--bg);
+    border-radius: 4px;
+    padding: 2px 8px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    letter-spacing: 0.01em;
+}
+
+.browser-viewport {
+    width: 100%;
+    height: 160px;
+    overflow: hidden;
+    position: relative;
+    background: var(--bg);
+}
+
+.showcase-img {
+    width: 100%;
+    display: block;
+    object-fit: cover;
+    object-position: top center;
+}
+
+/* Static image (homepage) — just cover the viewport */
+.showcase-img-static {
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Scrollable images (menu, contact) — tall image, scrolls on hover */
+.showcase-img-scroll {
+    height: auto;
+    transition: transform 3s var(--ease-out-quart);
+    transform: translateY(0);
+}
+
+.browser-viewport-scroll:hover .showcase-img-scroll {
+    transform: translateY(calc(-100% + 160px));
+}
+
+.browser-label {
+    display: block;
+    text-align: center;
+    font-family: var(--font-body);
+    font-size: 0.65rem;
+    color: var(--text-secondary);
+    padding: 6px 0;
+    letter-spacing: 0.02em;
+    transition: color 0.2s ease;
+}
+
+.browser-frame:hover .browser-label {
+    color: var(--text);
+}
+
+/* --- Feature Pills --- */
+.project-features {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin: 8px 0 4px;
+}
+
+.feature-pill {
+    font-family: var(--font-body);
+    font-size: 0.65rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    padding: 4px 10px;
+    border-radius: 100px;
+    border: 1px solid var(--border);
+    color: var(--text-secondary);
+    background: var(--bg-alt);
+    transition: color 0.25s ease,
+                border-color 0.25s ease,
+                background 0.25s ease;
+    white-space: nowrap;
+}
+
+.project-showcase-card:hover .feature-pill {
+    border-color: rgba(212, 175, 55, 0.3);
+    color: var(--text);
+}
+
+/* --- Showcase Live Link --- */
+.showcase-live-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 16px;
+    font-family: var(--font-body);
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    color: var(--text-secondary);
+    text-decoration: none;
+    text-transform: lowercase;
+    transition: color 0.2s ease;
+}
+
+.showcase-live-link:hover {
+    color: var(--text);
+    opacity: 1;
+}
+
+.showcase-live-link svg {
+    width: 12px;
+    height: 12px;
+    transition: transform 0.3s var(--ease-out-expo);
+}
+
+.showcase-live-link:hover svg {
+    transform: translate(3px, -3px);
 }
 
 .project:last-child {
@@ -807,6 +1012,30 @@ body.page-loaded .grain-background {
         flex-direction: column;
         gap: 16px;
     }
+
+    /* Showcase responsive */
+    .project-showcase {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .browser-viewport {
+        height: 200px;
+    }
+
+    .browser-viewport-scroll:hover .showcase-img-scroll {
+        transform: translateY(calc(-100% + 200px));
+    }
+
+    .project-showcase-card {
+        margin-left: -16px;
+        margin-right: -16px;
+        padding: 20px 16px 20px;
+    }
+
+    .project-features {
+        gap: 5px;
+    }
 }
 
 /* ===== Reduced Motion ===== */
@@ -829,6 +1058,19 @@ body.page-loaded .grain-background {
     
     .gradient-layer {
         animation: none;
+    }
+
+    /* Disable showcase hover-scroll for reduced motion */
+    .showcase-img-scroll {
+        transition: none;
+    }
+
+    .browser-viewport-scroll:hover .showcase-img-scroll {
+        transform: none;
+    }
+
+    .browser-frame:hover {
+        transform: none;
     }
 }
 
