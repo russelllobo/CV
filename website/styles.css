@@ -595,17 +595,20 @@ section {
 /* --- Browser Frame --- */
 .browser-frame {
     position: relative;
-    border-radius: 8px;
+    border-radius: 10px;
     overflow: hidden;
     border: 1px solid var(--border);
     background: var(--bg-alt);
+    cursor: pointer;
     transition: transform 0.35s var(--ease-out-expo),
-                box-shadow 0.35s var(--ease-out-expo);
+                box-shadow 0.35s var(--ease-out-expo),
+                border-color 0.35s ease;
 }
 
 .browser-frame:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 30px -10px var(--shadow-color-strong);
+    transform: translateY(-5px) scale(1.01);
+    box-shadow: 0 16px 40px -12px var(--shadow-color-strong);
+    border-color: rgba(212, 175, 55, 0.35);
 }
 
 .browser-chrome {
@@ -680,18 +683,28 @@ section {
 }
 
 .browser-label {
-    display: block;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
     text-align: center;
     font-family: var(--font-body);
-    font-size: 0.65rem;
-    color: var(--text-secondary);
-    padding: 6px 0;
-    letter-spacing: 0.02em;
-    transition: color 0.2s ease;
+    font-size: 0.6rem;
+    font-weight: 600;
+    color: #fff;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 28px 0 10px;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.7) 0%, transparent 100%);
+    opacity: 0;
+    transform: translateY(6px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    pointer-events: none;
 }
 
 .browser-frame:hover .browser-label {
-    color: var(--text);
+    opacity: 1;
+    transform: translateY(0);
 }
 
 /* --- Feature Pills --- */
@@ -1087,6 +1100,12 @@ body.page-loaded .grain-background {
     }
 
     .browser-frame:hover {
+        transform: none;
+    }
+
+    /* Always show labels when reduced motion is on */
+    .browser-label {
+        opacity: 1;
         transform: none;
     }
 }
