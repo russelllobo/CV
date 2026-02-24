@@ -811,6 +811,23 @@ section {
 }
 
 /* ===== Skills ===== */
+.skills-statement {
+    font-size: 1rem;
+    color: var(--text);
+    line-height: 1.7;
+    margin-bottom: 32px;
+    font-family: var(--font-sans);
+    max-width: 520px;
+}
+
+.skills-codex {
+    font-style: normal;
+    font-weight: 500;
+    color: var(--accent);
+    font-family: var(--font-sans);
+    letter-spacing: -0.02em;
+}
+
 .skills-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
